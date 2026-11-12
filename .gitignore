@@ -1,0 +1,15 @@
+# Игнорируем результаты сборки Visual Studio
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.cache
+*.log
+
+# Игнорируем Rider
+.idea/
+
+# Игнорируем системные файлы
+Thumbs.db
+Desktop.ini
