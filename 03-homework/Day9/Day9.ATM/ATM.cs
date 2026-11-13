@@ -4,6 +4,16 @@ namespace BankomatOperatioin
 {
     class Bankomat
     {
+        static decimal GetAmount(string prompt)
+        {
+            Console.Write(prompt);
+            decimal amount;
+            while (!decimal.TryParse(Console.ReadLine(), out amount))
+            {
+                Console.Write("Error.Enter amount: ");
+            }
+            return amount;
+        }
         static void ShowMenu()
         {
             Console.WriteLine("\n=== ATM ===\n1. Show balance\n2. Deposite money\n3. Whithdraw money\n0. Exit\n");
@@ -12,7 +22,11 @@ namespace BankomatOperatioin
         static int ReadChoise()
         {
             Console.Write("Choose operation: ");
-            int operation = int.Parse(Console.ReadLine());
+            int operation;
+            while (!int.TryParse(Console.ReadLine(), out operation))
+            {
+                Console.Write("Error. Choose operation: ");
+            }
             return operation;
         }
 
@@ -28,9 +42,14 @@ namespace BankomatOperatioin
 
         static decimal Whithdraw(decimal balance, decimal whithdraw)
         {
-            if ((whithdraw > balance) || (whithdraw <= 0))
+            if (whithdraw > balance)
             {
-                Console.WriteLine("You cant whithdraw.");
+                Console.WriteLine("Not enough money on your balance!");
+                return balance;
+            }
+            else if (whithdraw <= 0)
+            {
+                Console.WriteLine("Enter a positive amount!");
                 return balance;
             }
             else
@@ -43,6 +62,7 @@ namespace BankomatOperatioin
         static void Main()
         {
             decimal balance = 250.00m;
+            string prompt = "Write your amount: ";
             bool isRunning = true;
 
             while (isRunning)
@@ -60,16 +80,14 @@ namespace BankomatOperatioin
                         }
                     case 2:
                         {
-                            Console.Write("Write your amount: ");
-                            decimal amount = decimal.Parse(Console.ReadLine());
+                            decimal amount = GetAmount(prompt);
                             balance = Deposit(balance, amount);
                             Console.WriteLine("Your deposite is complite.");
                             break;
                         }
                     case 3:
                         {
-                            Console.Write("Write your whithdraw: ");
-                            decimal whithdraw = decimal.Parse(Console.ReadLine());
+                            decimal whithdraw = GetAmount(prompt);
                             balance = Whithdraw(balance, whithdraw);
                             break;
                         }
@@ -87,7 +105,7 @@ namespace BankomatOperatioin
                 }
             }
 
-            Console.WriteLine($"\nYour total balance is {balance}!");
+            Console.WriteLine($"\nYour total balance is {balance:F2}!");
         }
     }
 }
