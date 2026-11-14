@@ -32,7 +32,7 @@ namespace BankomatOperatioin
 
         static void ShowBalance(decimal balance)
         {
-            Console.WriteLine($"Your balance is {balance}.");
+            Console.WriteLine($"Your balance is {balance:F2}.");
         }
 
         static decimal Deposit(decimal balance, decimal amount)
