@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http.Headers;
 
 namespace FileViewer
 {
@@ -13,14 +14,17 @@ namespace FileViewer
             Console.WriteLine("File logged.\n");
             // Read back every logged event
             Console.WriteLine("History events:\n");
-            StreamReader reader = new StreamReader(logFile);
-            string line;
-
-            while ((line = reader.ReadLine()) != null)
+            using (StreamReader reader = new StreamReader(logFile))
             {
-                Console.WriteLine(line);
+                string line;
+                while((line = reader.ReadLine()) != null)
+                {
+                    Console.WriteLine(line);
+                }
             }
             // Count the logged events
+            string[] lines = File.ReadAllLines(logFile);
+            Console.WriteLine($"{lines.Length} events in your file.");
         }
     }
 }
