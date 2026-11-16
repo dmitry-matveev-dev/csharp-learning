@@ -77,7 +77,7 @@ namespace WorkoutLog
                         string line;
                         while ((line = reader.ReadLine()) != null)
                         {
-                            Console.Write(line);
+                            Console.WriteLine(line);
                         }
                     }
                 }
