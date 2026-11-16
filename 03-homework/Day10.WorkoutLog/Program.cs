@@ -6,7 +6,7 @@ namespace WorkoutLog
     class LogWorkouter
     {
 
-        public static string _fileName = "training_log";
+        public static string _fileName = "training_log.txt";
         static void ShowMenu()
         {
             Console.WriteLine("\n=== Training Log ===\n1. Add training.\n2. History.\n3. Statistics.\n4. Create new log or choose old log.\n0. Exit\n");
@@ -59,20 +59,48 @@ namespace WorkoutLog
         }
         static void SeeHistory()
         {
-            string history = File.ReadAllText(_fileName);
-            Console.Write(history);
-        }
-        static void SeeStatistics()
-        {
-            int countTraining = File.ReadAllLines(_fileName).Length;
-            if (countTraining == 0)
+            if (!File.Exists(_fileName))
             {
                 Console.WriteLine("You have no trainings!");
             }
             else
             {
-                string lastTraining = File.ReadLines(_fileName).Last();
-                Console.WriteLine($"You have {countTraining} trainings,\nthe last is {lastTraining}");
+                int countTraining = File.ReadAllLines(_fileName).Length;
+                if (countTraining == 0)
+                {
+                    Console.WriteLine("You have no trainings!");
+                }
+                else
+                {
+                    using (StreamReader reader = new StreamReader(_fileName))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            Console.Write(line);
+                        }
+                    }
+                }
+            }
+        }
+        static void SeeStatistics()
+        {
+            if (!File.Exists(_fileName))
+            {
+                Console.WriteLine("You have no trainings!");
+            }
+            else
+            {
+                int countTraining = File.ReadAllLines(_fileName).Length;
+                if (countTraining == 0)
+                {
+                    Console.WriteLine("You have no trainings!");
+                }
+                else
+                {
+                    string lastTraining = File.ReadLines(_fileName).Last();
+                    Console.WriteLine($"You have {countTraining} trainings,\nthe last is {lastTraining}");
+                }
             }
         }
         static string NewLog()
