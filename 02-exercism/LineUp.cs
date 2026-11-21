@@ -29,6 +29,7 @@ public static class LineUp
                         endWord = "rd";
                         break;
                     }
+                    }
                 default:
                     {
                         endWord = "th";
