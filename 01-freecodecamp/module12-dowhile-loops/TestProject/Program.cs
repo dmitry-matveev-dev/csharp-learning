@@ -58,7 +58,7 @@ namespace Loops
 
                 validEntry = int.TryParse(valueEntered, out numValue);
 
-                if (validEntry == true)
+                if (validEntry)
                 {
                     if (numValue <= 5 || numValue >= 10)
                     {
